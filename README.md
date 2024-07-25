@@ -6,14 +6,16 @@ We introduce **OfficeBench**, one of the first office automation benchmarks for 
  
 <p align="center">
 <img src=assets/officebench.jpg width=900/>
-<p style="text-align: center;"><strong>OfficeBench is one of the first office automation benchmarks for language agents.</strong> We assess the ability of language agents to perform complex office workflows across multiple applications using customized evaluation methods, such as Exact Matching, Fuzzy Matching, and Execution-based Evaluation.</p>
 </p>
+
+**OfficeBench is one of the first office automation benchmarks for language agents.** We assess the ability of language agents to perform complex office workflows across multiple applications using customized evaluation methods, such as Exact Matching, Fuzzy Matching, and Execution-based Evaluation.
 
 ## 🧩 Architecture
 <p align="center">
 <img src=assets/architecture.jpg width=850/>
-<p style="text-align: center;">The LLM agent leverages the operations from multiple applications to systematically construct an operation chain that addresses the office tasks effectively. The framework is formulated as a transition system where the current application serves as the <em>state</em> and the operations serve as the <em>transitions</em>. Specialized operations, such as <em>read_file</em> and <em>send_email</em>, perform specific tasks. </p>
 </p>
+
+The LLM agent leverages the operations from multiple applications to systematically construct an operation chain that addresses the office tasks effectively. The framework is formulated as a transition system where the current application serves as the _state_ and the operations serve as the _transitions_. Specialized operations, such as `read_file` and `send_email`, perform specific tasks.
 
 ## 🛠️ Setup
 ```
@@ -53,7 +55,7 @@ python agent_interact.py \
 
 ```shell
 python evaluation.py \
---model_name {model_name} \           # the LLM you used
+--model_name {model_name} \           # the LLM you used (`--model_name` used in agent_interact.py)
 --tag_name {tag_name} \               # the tag you used (`--tag` used in agent_interact.py)
 ```
 
