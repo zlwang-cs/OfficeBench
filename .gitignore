@@ -3,10 +3,9 @@ __pycache__
 .DS_Store
 .init
 *.log
-*.ipynb
 openai_key.txt
 gemini_key.txt
 outputs*/
 cache/
-
+results/
 

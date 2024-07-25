@@ -10,3 +10,10 @@ docx2pdf
 pytesseract
 openai==0.28.1
 icalendar
+gymnasium
+rich
+docker
+mysql-connector-python
+rpyc
+openpyxl
+google-generativeai

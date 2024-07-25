@@ -12,7 +12,7 @@ from utils.policies import LLMPolicy
 from intercode.envs.ic_env import ACTION_EXEC
 
 def main(docker_name='officebench',
-         container_name='officebench-debug-lily',
+         container_name='officebench-debug',
          dockerfile_path='./docker/Dockerfile',
          model_name='gpt-4o-2024-05-13',
          task_dir='tasks/1-1',

@@ -140,29 +140,9 @@ class Qwen:
         self.system_message = system_message
     
     def generate(self, prompt):
-        completion = self.model.chat.completions.create(
-            model="Qwen/Qwen2-72B-Instruct",
-            messages=[
-                {"role": "system", "content": self.system_message},
-                {"role": "user", "content": prompt}
-            ]
-        )
-        return completion.choices[0].message.content
-    
-
-class Mixtral:
-    def __init__(self, model_name, system_message=None):
-        self.model_name = model_name
-        self.model = openai.OpenAI(
-            base_url="http://localhost:8000/v1",
-            api_key="token-abc123",
-        )
-        self.system_message = system_message
-    
-    def generate(self, prompt):
         try:
             completion = self.model.chat.completions.create(
-                model="mistralai/Mixtral-8x22B-v0.1",
+                model="Qwen/Qwen2-72B-Instruct",
                 messages=[
                     {"role": "system", "content": self.system_message},
                     {"role": "user", "content": prompt}
@@ -170,5 +150,5 @@ class Mixtral:
             )
             return completion.choices[0].message.content
         except Exception as e:
-            print('Generation Error:', e)
-            return 'None'
+                print('Generation Error:', e)
+                return 'None'
