@@ -1,0 +1,19 @@
+# aspose_words
+fire
+pandas
+python_docx
+scikit_learn
+openpyxl
+tabulate
+Pillow
+PyMuPDF
+PyPDF2
+pdf2docx
+pytesseract
+icalendar
+openai==0.28.1
+gymnasium
+rich
+docker
+mysql-connector-python
+rpyc
