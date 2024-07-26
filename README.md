@@ -2,7 +2,7 @@
 
 🖋 **Authors:** [Zilong Wang](https://zilongwang.me), Yuedong Cui, [Li Zhong](https://github.com/FloridSleeves), Zimin Zhang, [Da Yin](https://wadeyin9712.github.io/), [Bill Yuchen Lin](https://yuchenlin.xyz/), [Jingbo Shang](https://shangjingbo1226.github.io/)
 
-We introduce **OfficeBench**, one of the first office automation benchmarks for evaluating current LLM agents' capability to address the office tasks in realistic office workflows. **OfficeBench** requires LLM agents to perform feasible long-horizon planning, proficiently switch between applications in a timely manner, and accurately ground their actions within a large combined action space, based on the contextual demands of the workflow.
+We introduce **OfficeBench**, one of the first office automation benchmarks for evaluating current LLM agents' capability to address office tasks in realistic office workflows. **OfficeBench** requires LLM agents to perform feasible long-horizon planning, proficiently switch between applications in a timely manner, and accurately ground their actions within a large combined action space, based on the contextual demands of the workflow.
 
 <p align="center">
 <img src=assets/officebench.jpg width=900/>
@@ -16,7 +16,7 @@ We introduce **OfficeBench**, one of the first office automation benchmarks for 
 <img src=assets/architecture.jpg width=900/>
 </p>
 
-The LLM agent leverages the operations from multiple applications to systematically construct an operation chain that addresses the office tasks effectively. **The framework is formulated as a transition system where the current application serves as the _state_ and the operations serve as the _transitions_.** Specialized operations, such as `read_file` and `send_email`, perform specific tasks.
+The LLM agent leverages the operations from multiple applications to construct an operation chain that effectively addresses office tasks. **The framework is formulated as a transition system where the current application serves as the _state_ and the operations serve as the _transitions_.** Specialized operations, such as `read_file` and `send_email`, perform specific tasks.
 
 ## 📈 Leaderboard
 
@@ -26,9 +26,9 @@ The LLM agent leverages the operations from multiple applications to systematica
 | LLM Agents                                | Single App (93) | Two Apps (95) | Three Apps (112) | Overall (300) |
 | ----------------------------------------- | --------------- | ------------- | ---------------- | ------------- |
 | **Proprietary Models**                    |                 |               |                  |               |
-| Gemni-1.0 Pro (Latest update: Feb 2024)   | 24.73           | 13.68         | 0.89             | 12.33         |
-| Gemni-1.5 Flash (Latest update: May 2024) | 34.41           | 24.21         | 0.89             | 18.67         |
-| Gemni-1.5 Pro (Latest update: May 2024)   | 41.94           | 32.63         | 7.14             | 26.00         |
+| Gemni-1.0 Pro (Feb 2024)                  | 24.73           | 13.68         | 0.89             | 12.33         |
+| Gemni-1.5 Flash (May 2024)                | 34.41           | 24.21         | 0.89             | 18.67         |
+| Gemni-1.5 Pro (May 2024)                  | 41.94           | 32.63         | 7.14             | 26.00         |
 | GPT-3.5 Turbo (0125)                      | 8.60            | 7.45          | 0.89             | 5.35          |
 | GPT-4 Turbo (2024-04-09)                  | 56.99           | 50.63         | 11.61            | 38.00         |
 | GPT-4 Omni (2024-05-13)                   | 64.52           | 60.00         | 21.43            | 47.00         |
