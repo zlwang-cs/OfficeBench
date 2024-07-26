@@ -17,3 +17,7 @@ mysql-connector-python
 rpyc
 openpyxl
 google-generativeai
+
+# if you need to run vLLM, you need to install the following packages
+# check the installation guide at https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html for more information
+# vllm

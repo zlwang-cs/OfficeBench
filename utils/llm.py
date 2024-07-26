@@ -3,6 +3,7 @@ import time
 import numpy as np
 import google.generativeai as genai
 
+
 class ChatGPT:
     def __init__(self, model_name, key, system_message=None):
         self.model_name = model_name
@@ -29,7 +30,11 @@ class ChatGPT:
         messages = [
             {
                 "role": "system",
-                "content": "I will give you some examples, you need to follow the examples and complete the text, and no other content." if self.system_message is None else self.system_message,
+                "content": (
+                    "I will give you some examples, you need to follow the examples and complete the text, and no other content."
+                    if self.system_message is None
+                    else self.system_message
+                ),
             },
             {"role": "user", "content": prompt},
         ]
@@ -44,7 +49,7 @@ class ChatGPT:
                     messages=messages,
                     stop=end_str,
                     api_key=self.key,
-                    **options
+                    **options,
                 )
                 error = None
             except Exception as e:
@@ -81,7 +86,6 @@ class ChatGPT:
         options["n"] = 1
         result = self.generate_plus_with_score(prompt, options, end_str)[0][0]
         return result
-    
 
 
 class Gemini:
@@ -92,21 +96,24 @@ class Gemini:
         genai.configure(api_key=key)
         self.model = genai.GenerativeModel(model_name)
         self.system_message = system_message
-    
+
     def generate(self, prompt):
-        combined_prompt = f"{self.system_message}\n\n{prompt}" if self.system_message else prompt
+        combined_prompt = (
+            f"{self.system_message}\n\n{prompt}" if self.system_message else prompt
+        )
         response = self.model.generate_content(
             combined_prompt,
             generation_config=genai.types.GenerationConfig(
                 # Only one candidate for now.
                 candidate_count=1,
                 max_output_tokens=1024,
-                temperature=1.0)
+                temperature=1.0,
+            ),
         )
         return response.text
-    
 
-class LLAMA:
+
+class vLLM:
     def __init__(self, model_name, system_message=None):
         self.model_name = model_name
         self.model = openai.OpenAI(
@@ -114,41 +121,17 @@ class LLAMA:
             api_key="token-abc123",
         )
         self.system_message = system_message
-    
-    def generate(self, prompt):
-        try:
-            completion = self.model.chat.completions.create(
-                model="NousResearch/Meta-Llama-3-70B-Instruct",
-                messages=[
-                    {"role": "system", "content": self.system_message},
-                    {"role": "user", "content": prompt}
-                ]
-            )
-            return completion.choices[0].message.content
-        except Exception as e:
-            print('Generation Error:', e)
-            return 'None'
-    
 
-class Qwen:
-    def __init__(self, model_name, system_message=None):
-        self.model_name = model_name
-        self.model = openai.OpenAI(
-            base_url="http://localhost:8000/v1",
-            api_key="token-abc123",
-        )
-        self.system_message = system_message
-    
     def generate(self, prompt):
         try:
             completion = self.model.chat.completions.create(
-                model="Qwen/Qwen2-72B-Instruct",
+                model=self.model_name,
                 messages=[
                     {"role": "system", "content": self.system_message},
-                    {"role": "user", "content": prompt}
-                ]
+                    {"role": "user", "content": prompt},
+                ],
             )
             return completion.choices[0].message.content
         except Exception as e:
-                print('Generation Error:', e)
-                return 'None'
+            print("Generation Error:", e)
+            return "None"

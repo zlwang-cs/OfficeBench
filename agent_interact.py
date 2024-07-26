@@ -29,7 +29,7 @@ def main(docker_name='officebench',
     if tag is None:
         timezone = pytz.timezone('America/Los_Angeles')
         tag = datetime.now(timezone).strftime('%Y%m%d%H%M%S')
-    output_dir = f'{task_dir}/outputs/{subtask_id}/{model_name}_{tag}'
+    output_dir = f'{task_dir}/outputs/{subtask_id}/{model_name.replace("/", "_")}_{tag}'
     
     assert mode in ['force_new', 'use_llm_cache', 'default']
     if mode == 'force_new':

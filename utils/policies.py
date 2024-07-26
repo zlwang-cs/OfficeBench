@@ -1,7 +1,7 @@
 import json
 import apps
 
-from utils.llm import ChatGPT, Gemini, LLAMA, Qwen
+from utils.llm import ChatGPT, Gemini, vLLM
 
 import logging
 
@@ -62,12 +62,9 @@ class LLMPolicy(BasePolicy):
             self.llm = ChatGPT(model_name, key, self.system_message)
         elif 'gemini' in model_name:
             self.llm = Gemini(model_name, key, self.system_message)
-        elif 'Llama-3' in model_name:
-            self.llm = LLAMA(model_name, self.system_message)
-        elif 'Qwen' in model_name:
-            self.llm = Qwen(model_name, self.system_message)
         else:
-            raise NotImplementedError
+            self.llm = vLLM(model_name, self.system_message)
+            
         self.llm_history = []
 
         self.action_window = []

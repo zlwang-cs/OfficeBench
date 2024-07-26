@@ -38,7 +38,7 @@ def main(model_name='gpt-4o-2024-05-13', tag_name='test', result_dir='./results'
     
     all_tasks_info = []
     unfound_result_cases = []
-    result_path = f'{result_dir}/{model_name}_{tag_name}_result.jsonl'
+    result_path = f'{result_dir}/{model_name.replace("/", "_")}_{tag_name}_result.jsonl'
     
     f_result = open(result_path, 'w')
 
@@ -54,7 +54,7 @@ def main(model_name='gpt-4o-2024-05-13', tag_name='test', result_dir='./results'
     for task_id, subtask_id in all_tasks_info:
         num_app_tag = task_id[0]
         # ./tasks/3-42/outputs/0/gemini-1.5-pro_jun11-gemini/testbed/
-        result_testbed_dir = f"./tasks/{task_id}/{output_subdir}/{subtask_id}/{model_name}_{tag_name}/testbed"
+        result_testbed_dir = f"./tasks/{task_id}/{output_subdir}/{subtask_id}/{model_name.replace("/", "_")}_{tag_name}/testbed"
         if os.path.exists(result_testbed_dir):
             print(f"Found {result_testbed_dir}")
             try:
