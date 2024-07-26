@@ -19,8 +19,6 @@ We introduce **OfficeBench**, one of the first office automation benchmarks for 
 The LLM agent leverages the operations from multiple applications to construct an operation chain that effectively addresses office tasks. **The framework is formulated as a transition system where the current application serves as the _state_ and the operations serve as the _transitions_.** Specialized operations, such as `read_file` and `send_email`, perform specific tasks.
 
 ## 📈 Leaderboard
-
-*Note: This leaderboard will be continuously updated as new data and model updates become available.*
 *`X App(s)` indicates the number of apps the task requires. `(X)` indicates the number of tasks in this category.*
 
 | LLM Agents                                | Single App (93) | Two Apps (95) | Three Apps (112) | Overall (300) |
@@ -35,8 +33,8 @@ The LLM agent leverages the operations from multiple applications to construct a
 | **Open-weights Models**                   |                 |               |                  |               |
 | Llama 3 (70B-Instruct)                    | 39.79           | 41.05         | 5.36             | 27.33         |
 | Qwen 2 (72B-Instruct)                     | 30.23           | 28.42         | 8.04             | 21.16         |
-| **Human Performance**                     | 96.00           | 96.00         | 88.00            | 93.33         |
 
+*(Note: This leaderboard will be continuously updated as new data and model updates become available.)*
 
 ## 🛠️ Setup
 
