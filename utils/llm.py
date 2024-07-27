@@ -1,4 +1,4 @@
-import openai
+from openai import OpenAI
 import time
 import numpy as np
 import google.generativeai as genai
@@ -9,6 +9,11 @@ class ChatGPT:
         self.model_name = model_name
         self.key = key
         self.system_message = system_message
+        
+        self.client = OpenAI(
+            api_key=key
+        )
+                
 
     def get_model_options(
         self,
@@ -44,11 +49,10 @@ class ChatGPT:
         error = None
         while gpt_responses is None:
             try:
-                gpt_responses = openai.ChatCompletion.create(
+                gpt_responses = self.client.chat.completions.create(
                     model=self.model_name,
                     messages=messages,
                     stop=end_str,
-                    api_key=self.key,
                     **options,
                 )
                 error = None
@@ -116,20 +120,36 @@ class Gemini:
 class vLLM:
     def __init__(self, model_name, system_message=None):
         self.model_name = model_name
-        self.model = openai.OpenAI(
+        self.system_message = system_message
+        self.client = OpenAI(
             base_url="http://localhost:8000/v1",
             api_key="token-abc123",
         )
-        self.system_message = system_message
+    
+    def get_model_options(
+        self,
+        temperature=0,
+        per_example_max_decode_steps=512,
+        per_example_top_p=1,
+        n_sample=1,
+    ):
+        return dict(
+            temperature=temperature,
+            n=n_sample,
+            top_p=per_example_top_p,
+            max_tokens=per_example_max_decode_steps,
+        )
 
     def generate(self, prompt):
         try:
-            completion = self.model.chat.completions.create(
+            options = self.get_model_options()
+            completion = self.client.chat.completions.create(
                 model=self.model_name,
                 messages=[
                     {"role": "system", "content": self.system_message},
                     {"role": "user", "content": prompt},
                 ],
+                **options,
             )
             return completion.choices[0].message.content
         except Exception as e:

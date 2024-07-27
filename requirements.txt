@@ -8,7 +8,7 @@ PyPDF2
 pdf2docx
 docx2pdf
 pytesseract
-openai==0.28.1
+openai
 icalendar
 gymnasium
 rich
