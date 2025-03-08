@@ -40,6 +40,7 @@ The LLM agent leverages the operations from multiple applications to construct a
 
 ```
 conda create -n officebench python=3.10
+conda activate officebench
 pip install -r requirements.txt
 ```
 
