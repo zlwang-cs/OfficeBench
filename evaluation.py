@@ -27,7 +27,7 @@ def evaluate_output(task_id, subtask_id, output_dir):
             return False
     return True
 
-def main(model_name='gpt-4o-2024-05-13', tag_name='test', result_dir='./results', output_subdir='outputs'):
+def main(model_name='gpt-4o-2024-05-13', tag_name='test', result_dir='./results', output_subdir='outputs', subset_file=None):
     results_dict = {
         "1": [],
         "2": [],
@@ -51,6 +51,15 @@ def main(model_name='gpt-4o-2024-05-13', tag_name='test', result_dir='./results'
     
     all_tasks_info = sorted(all_tasks_info, key=lambda x: tuple(map(int, x[0].split('-'))) + (int(x[1]),))
     
+    if subset_file:
+        subset = json.load(open(subset_file))
+        subset_tasks = set(subset.get("tasks", []))
+        all_tasks_info = [
+            (task_id, subtask_id)
+            for task_id, subtask_id in all_tasks_info
+            if task_id in subset_tasks
+        ]
+
     for task_id, subtask_id in all_tasks_info:
         num_app_tag = task_id[0]
         # ./tasks/3-42/outputs/0/gemini-1.5-pro_jun11-gemini/testbed/

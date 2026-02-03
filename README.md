@@ -19,22 +19,23 @@ We introduce **OfficeBench**, one of the first office automation benchmarks for 
 The LLM agent leverages the operations from multiple applications to construct an operation chain that effectively addresses office tasks. **The framework is formulated as a transition system where the current application serves as the _state_ and the operations serve as the _transitions_.** Specialized operations, such as `read_file` and `send_email`, perform specific tasks.
 
 ## 📈 Leaderboard
-*`X App(s)` indicates the number of apps the task requires. `(X)` indicates the number of tasks in this category.*
 
-| LLM Agents                                | Single App (93) | Two Apps (95) | Three Apps (112) | Overall (300) |
-| ----------------------------------------- | --------------- | ------------- | ---------------- | ------------- |
-| **Proprietary Models**                    |                 |               |                  |               |
-| Gemni-1.0 Pro (Feb 2024)                  | 24.73           | 13.68         | 0.89             | 12.33         |
-| Gemni-1.5 Flash (May 2024)                | 34.41           | 24.21         | 0.89             | 18.67         |
-| Gemni-1.5 Pro (May 2024)                  | 41.94           | 32.63         | 7.14             | 26.00         |
-| GPT-3.5 Turbo (0125)                      | 8.60            | 7.45          | 0.89             | 5.35          |
-| GPT-4 Turbo (2024-04-09)                  | 56.99           | 50.63         | 11.61            | 38.00         |
-| GPT-4 Omni (2024-05-13)                   | 64.52           | 60.00         | 21.43            | 47.00         |
-| **Open-weights Models**                   |                 |               |                  |               |
-| Llama 3 (70B-Instruct)                    | 39.79           | 41.05         | 5.36             | 27.33         |
-| Qwen 2 (72B-Instruct)                     | 30.23           | 28.42         | 8.04             | 21.16         |
+_`X App(s)` indicates the number of apps the task requires. `(X)` indicates the number of tasks in this category._
 
-*(Note: This leaderboard will be continuously updated as new data and model updates become available.)*
+| LLM Agents                 | Single App (93) | Two Apps (95) | Three Apps (112) | Overall (300) |
+| -------------------------- | --------------- | ------------- | ---------------- | ------------- |
+| **Proprietary Models**     |                 |               |                  |               |
+| Gemni-1.0 Pro (Feb 2024)   | 24.73           | 13.68         | 0.89             | 12.33         |
+| Gemni-1.5 Flash (May 2024) | 34.41           | 24.21         | 0.89             | 18.67         |
+| Gemni-1.5 Pro (May 2024)   | 41.94           | 32.63         | 7.14             | 26.00         |
+| GPT-3.5 Turbo (0125)       | 8.60            | 7.45          | 0.89             | 5.35          |
+| GPT-4 Turbo (2024-04-09)   | 56.99           | 50.63         | 11.61            | 38.00         |
+| GPT-4 Omni (2024-05-13)    | 64.52           | 60.00         | 21.43            | 47.00         |
+| **Open-weights Models**    |                 |               |                  |               |
+| Llama 3 (70B-Instruct)     | 39.79           | 41.05         | 5.36             | 27.33         |
+| Qwen 2 (72B-Instruct)      | 30.23           | 28.42         | 8.04             | 21.16         |
+
+_(Note: This leaderboard will be continuously updated as new data and model updates become available.)_
 
 ## 🛠️ Setup
 
@@ -77,7 +78,22 @@ python agent_interact.py \
 
 ### Task Naming
 
-The annotated tasks can be found in `tasks/{app_num}-{task_id}/subtask/{subtask_id}.json`, which includes the *task decription* and *evaluation methods*.
+The annotated tasks can be found in `tasks/{app_num}-{task_id}/subtask/{subtask_id}.json`, which includes the _task decription_ and _evaluation methods_.
+
+## 🎯 Subset (50 tasks)
+
+We provide a deterministic 50-task subset sampled with seed 42 (16 single-app, 16 two-app, 18 three-app) in `subset.json`.
+
+```shell
+# Re-generate the subset (optional)
+python scripts/make_subset.py --tasks_dir tasks --seed 42 --single 16 --two 16 --three 18 --output subset.json
+
+# Print commands for running the subset (dry-run)
+python scripts/run_subset.py --subset_file subset.json --model_name gpt-4o-2024-05-13 --tag subset-run
+
+# Execute the subset runs (requires API keys)
+python scripts/run_subset.py --subset_file subset.json --model_name gpt-4o-2024-05-13 --tag subset-run --execute
+```
 
 ## ✅ Evaluation
 
@@ -85,6 +101,15 @@ The annotated tasks can be found in `tasks/{app_num}-{task_id}/subtask/{subtask_
 python evaluation.py \
 --model_name {model_name} \           # the LLM you used (`--model_name` used in agent_interact.py)
 --tag_name {tag_name} \               # the tag you used (`--tag` used in agent_interact.py)
+```
+
+To evaluate only the subset:
+
+```shell
+python evaluation.py \
+--model_name {model_name} \
+--tag_name {tag_name} \
+--subset_file subset.json
 ```
 
 Final results will be written to `results/{model_name}_{tag_name}_result.jsonl`
