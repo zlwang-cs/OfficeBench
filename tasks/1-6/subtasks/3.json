@@ -8,7 +8,7 @@
     {
       "function": "evaluate_excel_cell_value",
       "args": {
-        "file": "./data/company_budget.xlsx",
+        "file": "./data/salary.xlsx",
         "matches": [
           {
             "row": "1",
@@ -21,7 +21,7 @@
     {
       "function": "evaluate_excel_cell_value",
       "args": {
-        "file": "./data/company_budget.xlsx",
+        "file": "./data/salary.xlsx",
         "matches": [
           {
             "row": "2",
